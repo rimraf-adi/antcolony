@@ -1,0 +1,24 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# macOS
+.DS_Store
+
+# Dataset (large binary files)
+BSDS300/
+images/
+human/
+
+# Output (regenerable)
+output/
+
+# Lock file (optional — remove this line if you want reproducible deps)
+# uv.lock
