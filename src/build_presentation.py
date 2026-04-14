@@ -63,39 +63,40 @@ class SlidePDF(FPDF):
 
 def build_pdf():
     pdf = SlidePDF()
-    total = 15
-    assets = os.path.join(SCRIPT_DIR, "presentation", "assets")
+    total = 14
+    assets = os.path.join(SCRIPT_DIR, "../docs/presentation", "assets")
 
     # ──── SLIDE 1: Title ────
     pdf.add_page()
     pdf.set_font("Helvetica", "B", 36)
     pdf.set_text_color(0, 0, 0)
-    pdf.set_xy(15, 40)
+    pdf.set_xy(15, 30)
     pdf.cell(pdf.W - 30, 18, "ACO-Based Edge Detection", align="C", new_x="LMARGIN", new_y="NEXT")
 
     pdf.set_font("Helvetica", "", 18)
     pdf.set_text_color(100, 100, 100)
     pdf.set_x(15)
     pdf.cell(pdf.W - 30, 10, "Ant Colony Optimization for Image Edge Detection", align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_x(15)
-    pdf.cell(pdf.W - 30, 10, "Evaluated on the Berkeley Segmentation Dataset (BSDS300)", align="C", new_x="LMARGIN", new_y="NEXT")
 
     # Divider
     pdf.set_draw_color(0, 0, 0)
     pdf.set_line_width(0.4)
-    pdf.line(100, 90, 197, 90)
+    pdf.line(100, 80, 197, 80)
 
-    pdf.set_font("Helvetica", "", 13)
+    pdf.set_font("Helvetica", "", 14)
     pdf.set_text_color(80, 80, 80)
-    pdf.set_xy(15, 97)
-    pdf.cell(pdf.W - 30, 8, "Mini Project  -  Image Analysis & Computer Vision", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_xy(15, 87)
+    pdf.cell(pdf.W - 30, 8, "Mini Project: Image Analysis & Computer Vision", align="C", new_x="LMARGIN", new_y="NEXT")
 
     pdf.set_font("Helvetica", "", 12)
     pdf.set_text_color(0, 0, 0)
+    pdf.ln(10)
+    
     info_lines = [
-        "Team Members:  [Update Names Here]",
-        "Guide:  [Professor Name]",
-        "Institution:  [College / University Name]",
+        "Submitted by: Aditya Kinjawadekar (BT23ECE064)",
+        "Type: Solo Project",
+        "Guide: Dr. V. R. Satpute",
+        "Department of Electronics and Communication, VNIT Nagpur",
     ]
     for line in info_lines:
         pdf.set_x(15)
@@ -106,7 +107,7 @@ def build_pdf():
     pdf.add_page()
     pdf.slide_title("Problem Statement")
 
-    pdf.body_text("Edge detection is a fundamental operation in image analysis - identifying "
+    pdf.body_text("Edge detection is a fundamental operation in image analysis: identifying "
                   "boundaries where pixel intensity changes sharply.", y=33)
     pdf.ln(4)
     pdf.body_text("Challenges with Traditional Methods:", bold=True, size=14)
@@ -118,7 +119,7 @@ def build_pdf():
     pdf.ln(4)
     pdf.body_text("Our Approach:", bold=True, size=14)
     pdf.ln(1)
-    pdf.bullet("Apply Ant Colony Optimization (ACO) - a swarm intelligence metaheuristic")
+    pdf.bullet("Apply Ant Colony Optimization (ACO): a swarm intelligence metaheuristic")
     pdf.bullet("Artificial ants traverse the pixel grid, depositing pheromone on edge locations")
     pdf.bullet("Pheromone accumulates along true edge contours over multiple iterations")
     pdf.bullet("Evaluate against human-annotated ground truth from BSDS300 (300 images)")
@@ -128,15 +129,15 @@ def build_pdf():
     pdf.add_page()
     pdf.slide_title("Literature Survey")
 
-    pdf.body_text("[1]  Tian, Yu & Xie (2008) - IEEE CEC", y=33, bold=True, size=13)
+    pdf.body_text("[1]  Tian, Yu & Xie (2008): IEEE CEC", y=33, bold=True, size=13)
     pdf.bullet("Pioneered ACO for image edge detection. Ants traverse pixel grids using pheromone and gradient heuristics. Competitive with Sobel and Canny.", color=(80, 80, 80))
 
     pdf.ln(2)
-    pdf.body_text("[2]  Nezamabadi-pour et al. - MRF-Based Image Segmentation", bold=True, size=13)
+    pdf.body_text("[2]  Nezamabadi-pour et al.: MRF-Based Image Segmentation", bold=True, size=13)
     pdf.bullet("Extended ACO to MRF-based segmentation, showing pheromone-guided traversal captures spatial context beyond local gradient information.", color=(80, 80, 80))
 
     pdf.ln(2)
-    pdf.body_text("[3]  IJETT V71I9P233 - Edge Detection Using ACO", bold=True, size=13)
+    pdf.body_text("[3]  IJETT V71I9P233: Edge Detection Using ACO", bold=True, size=13)
     pdf.bullet("Comprehensive survey comparing ACO with classical methods. Analyzes parameter sensitivity. ACO produces smoother, more connected edges.", color=(80, 80, 80))
     pdf.slide_number(3, total)
 
@@ -180,26 +181,17 @@ def build_pdf():
     pdf.body_text("Each ant at pixel (i,j) chooses its next position from the 8-connected neighborhood:", size=11, color=(100, 100, 100))
     pdf.ln(2)
 
-    # Formula box
-    pdf.set_fill_color(245, 245, 245)
-    pdf.set_draw_color(200, 200, 200)
-    pdf.rect(40, pdf.get_y(), 217, 14, style="DF")
-    pdf.set_xy(40, pdf.get_y() + 3)
-    pdf.set_font("Courier", "", 13)
-    pdf.set_text_color(0, 0, 0)
-    pdf.cell(217, 8, "P(i,j)  =  [ t(i,j)^a  *  n(i,j)^b ]  /  Sum [ t(m,n)^a  *  n(m,n)^b ]", align="C")
+    img_eq1 = os.path.join(assets, "eq1.png")
+    pdf.add_image_safe(img_eq1, 40, pdf.get_y(), w=200)
 
-    pdf.ln(12)
+    pdf.ln(33)
     pdf.body_text("Pheromone Update", bold=True, size=15)
     pdf.ln(1)
 
-    pdf.set_fill_color(245, 245, 245)
-    pdf.rect(40, pdf.get_y(), 217, 14, style="DF")
-    pdf.set_xy(40, pdf.get_y() + 3)
-    pdf.set_font("Courier", "", 13)
-    pdf.cell(217, 8, "t(i,j)  <-  (1 - rho) * t(i,j)  +  Delta_t(i,j)", align="C")
+    img_eq2 = os.path.join(assets, "eq2.png")
+    pdf.add_image_safe(img_eq2, 40, pdf.get_y(), w=180)
 
-    pdf.ln(12)
+    pdf.ln(30)
     pdf.body_text("Where:", bold=True, size=12)
     pdf.bullet("t(i,j) = pheromone level          n(i,j) = heuristic (Sobel gradient)", size=11, color=(80, 80, 80))
     pdf.bullet("a = pheromone weight               b = heuristic weight               rho = evaporation rate", size=11, color=(80, 80, 80))
@@ -209,90 +201,79 @@ def build_pdf():
     pdf.add_page()
     pdf.slide_title("System Architecture & Pipeline")
 
+    pdf.body_text("The following represents the step-by-step pipeline from input image to the final edge map.", y=35)
+    pdf.ln(10)
     # Flowchart
     steps = ["Input Image\n(Grayscale)", "Sobel Gradient\nn(i,j)", "Init Pheromone\nt = 0.1",
              "Ant Traversal\nK ants, S steps", "Pheromone\nUpdate", "Edge Map\n[0, 255]"]
 
-    box_w = 38
-    box_h = 18
+    box_w = 40
+    box_h = 22
     start_x = 12
-    y_pos = 35
-    gap = 6
+    y_pos = 80
+    gap = 7
 
     for i, label in enumerate(steps):
         x = start_x + i * (box_w + gap)
         pdf.set_draw_color(0, 0, 0)
-        pdf.set_line_width(0.4)
+        pdf.set_line_width(0.5)
         pdf.rect(x, y_pos, box_w, box_h)
-        pdf.set_font("Helvetica", "B", 8)
+        pdf.set_font("Helvetica", "B", 10)
         pdf.set_text_color(0, 0, 0)
-        pdf.set_xy(x, y_pos + 2)
+        pdf.set_xy(x, y_pos + 4)
         pdf.cell(box_w, 5, f"Step {i+1}", align="C", new_x="LMARGIN", new_y="NEXT")
-        pdf.set_font("Helvetica", "", 8)
-        pdf.set_text_color(100, 100, 100)
+        pdf.set_font("Helvetica", "", 10)
+        pdf.set_text_color(80, 80, 80)
         lines = label.split("\n")
+        pdf.ln(1)
         for ln_text in lines:
             pdf.set_x(x)
-            pdf.cell(box_w, 4, ln_text, align="C", new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(box_w, 5, ln_text, align="C", new_x="LMARGIN", new_y="NEXT")
 
         if i < len(steps) - 1:
             arrow_x = x + box_w
-            pdf.set_xy(arrow_x, y_pos + 6)
-            pdf.set_font("Helvetica", "B", 14)
+            pdf.set_xy(arrow_x, y_pos + 8)
+            pdf.set_font("Helvetica", "B", 16)
             pdf.set_text_color(0, 0, 0)
-            pdf.cell(gap, 5, ">", align="C")
+            pdf.cell(gap, 6, ">", align="C")
 
-    pdf.body_text("Software Stack", y=60, bold=True, size=15)
-    pdf.bullet("Python >= 3.13          NumPy >= 2.4          OpenCV >= 4.13          tqdm")
-    pdf.ln(2)
-    pdf.body_text("Code Structure", bold=True, size=15)
-    pdf.bullet("main.py - AntColonyEdgeDetector class (core ACO algorithm)")
-    pdf.bullet("process_images.py - Batch processing pipeline with CLI support")
     pdf.slide_number(6, total)
 
-    # ──── SLIDE 7: Implementation (Code) ────
+    # ──── SLIDE 7: Implementation (Pseudocode) ────
     pdf.add_page()
-    pdf.slide_title("Core Algorithm - Code")
+    pdf.slide_title("How Ants Find Edges: Pseudocode")
 
-    code = """class AntColonyEdgeDetector:
-    def run_detection(self):
-        self._initialize_matrices()           # Sobel gradient + pheromone init
+    code = """1. Prepare a blank map for pheromones (trails) and a gradient map of the main image.
+2. For multiple turns (iterations):
+3.     Place a large number of ants randomly on the image grid.
+4.     For a set number of steps:
+5.         Each ant looks at its 8 neighboring pixels.
+6.         It calculates the chance to move across based on:
+7.              - How strong the image gradient is (heuristic)
+8.              - How much pheromone other ants left (trail)
+9.         The ant moves and leaves a small pheromone trace on its path.
+10.    After all ants finish moving, evaporate some old pheromones so bad paths fade.
+11.    Add the new pheromones from this turn to the global map.
+12. Once all turns are over, the areas with the most pheromone represent the true edges.
+13. Thicken the edges for visibility and return the final image."""
 
-        for iteration in range(self.num_iterations):
-            # Place K ants at random pixel positions
-            ant_rows = np.random.randint(0, H, self.num_ants)
-            ant_cols = np.random.randint(0, W, self.num_ants)
-
-            for step in range(steps_per_ant):
-                for ant in range(self.num_ants):
-                    # Transition probability: P = t^a * n^b
-                    # Choose next pixel from 8-connected neighbors
-                    # Deposit pheromone proportional to gradient
-
-            # Global pheromone update with evaporation
-            t = (1 - rho) * t + delta_t
-
-        # Normalize pheromone matrix -> edge map [0, 255]
-        # Dilate edges with 3x3 kernel for visibility
-        return dilated_edge_map"""
-
-    pdf.set_fill_color(245, 245, 245)
-    pdf.set_draw_color(200, 200, 200)
-    code_y = 33
-    pdf.rect(15, code_y, pdf.W - 30, 130, style="DF")
-    pdf.set_xy(20, code_y + 4)
-    pdf.set_font("Courier", "", 10)
-    pdf.set_text_color(0, 0, 0)
+    pdf.set_fill_color(248, 248, 248)
+    pdf.set_draw_color(220, 220, 220)
+    code_y = 35
+    pdf.rect(15, code_y, pdf.W - 30, 110, style="DF")
+    pdf.set_xy(20, code_y + 8)
+    pdf.set_font("Helvetica", "", 13)
+    pdf.set_text_color(30, 30, 30)
     for line in code.split("\n"):
         pdf.set_x(20)
-        pdf.cell(0, 5.5, line, new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 7, line, new_x="LMARGIN", new_y="NEXT")
     pdf.slide_number(7, total)
 
     # ──── SLIDE 8: Dataset ────
     pdf.add_page()
-    pdf.slide_title("Dataset - BSDS300")
+    pdf.slide_title("Dataset: BSDS300")
 
-    pdf.body_text("Berkeley Segmentation Dataset - 300 natural images with human-annotated ground truth", y=33, size=12, color=(100, 100, 100))
+    pdf.body_text("Berkeley Segmentation Dataset: 300 natural images with human-annotated ground truth", y=33, size=12, color=(100, 100, 100))
 
     # Stats boxes
     stats = [("300", "Natural Images"), ("200", "Training Set"),
@@ -368,9 +349,9 @@ def build_pdf():
 
     # ──── SLIDE 10: Results 1 ────
     pdf.add_page()
-    pdf.slide_title("Results - Sample Outputs (Set 1)")
+    pdf.slide_title("Results: Sample Outputs (Set 1)")
 
-    pdf.body_text("Each dashboard:  Original  |  Human Ground Truth  |  ACO Edge Map", y=30, size=11, color=(100, 100, 100))
+    pdf.body_text("Each dashboard: Original | Human Ground Truth | ACO Edge Map", y=30, size=11, color=(100, 100, 100))
 
     img1 = os.path.join(assets, "sample_bears.png")
     pdf.add_image_safe(img1, 15, 40, w=265)
@@ -378,18 +359,18 @@ def build_pdf():
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(150, 150, 150)
     pdf.set_xy(15, 100)
-    pdf.cell(265, 5, "BSDS300 #100075 - Bears at water's edge", align="C")
+    pdf.cell(265, 5, "BSDS300 #100075: Bears at water's edge", align="C")
 
     img2 = os.path.join(assets, "sample_plane.png")
     pdf.add_image_safe(img2, 15, 110, w=265)
 
     pdf.set_xy(15, 170)
-    pdf.cell(265, 5, "BSDS300 #3096 - Military aircraft in flight", align="C")
+    pdf.cell(265, 5, "BSDS300 #3096: Military aircraft in flight", align="C")
     pdf.slide_number(10, total)
 
     # ──── SLIDE 11: Results 2 ────
     pdf.add_page()
-    pdf.slide_title("Results - Sample Outputs (Set 2)")
+    pdf.slide_title("Results: Sample Outputs (Set 2)")
 
     img3 = os.path.join(assets, "sample_3.png")
     pdf.add_image_safe(img3, 15, 35, w=265)
@@ -397,13 +378,13 @@ def build_pdf():
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(150, 150, 150)
     pdf.set_xy(15, 97)
-    pdf.cell(265, 5, "BSDS300 #42049 - Bird on branch", align="C")
+    pdf.cell(265, 5, "BSDS300 #42049: Bird on branch", align="C")
 
     img4 = os.path.join(assets, "sample_4.png")
     pdf.add_image_safe(img4, 15, 107, w=265)
 
     pdf.set_xy(15, 170)
-    pdf.cell(265, 5, "BSDS300 #135069 - Eagles in flight", align="C")
+    pdf.cell(265, 5, "BSDS300 #135069: Eagles in flight", align="C")
     pdf.slide_number(11, total)
 
     # ──── SLIDE 12: Analysis ────
@@ -476,60 +457,19 @@ def build_pdf():
 
     # ──── SLIDE 14: Conclusion ────
     pdf.add_page()
-    pdf.slide_title("Conclusion & Future Work")
+    pdf.slide_title("Conclusion")
 
-    pdf.body_text("Conclusions", x=15, y=33, bold=True, size=15)
+    pdf.body_text("Final Remarks", x=15, y=33, bold=True, size=15)
     for c in [
-        "Successfully implemented ACO edge detection",
-        "Evaluated on all 300 BSDS300 images",
-        "Produces coherent, continuous edge contours",
-        "Fully unsupervised - no training or labels required",
-        "Dashboard visualizations enable direct comparison with human ground truth",
+        "Successfully implemented an Ant Colony Optimization algorithm for edge detection.",
+        "Evaluated thoroughly on 300 images from the Berkeley Segmentation Dataset (BSDS300).",
+        "Demonstrated the ability of artificial ants to form coherent, continuous edge contours.",
+        "Proved the algorithm works in a fully unsupervised manner without external training.",
+        "Created an automated dashboard to visually compare outputs with human ground truth.",
     ]:
         pdf.bullet(c, x=18)
 
-    pdf.body_text("Future Work", x=155, y=33, bold=True, size=15)
-    pdf.set_y(44)
-    for f in [
-        "GPU acceleration via CUDA/OpenCL",
-        "Multi-scale heuristics using Gaussian pyramids",
-        "Hybrid ACO + Canny for precise edges",
-        "Quantitative metrics: F1, ODS, OIS scores",
-        "Auto-tune parameters via PSO / genetic algorithms",
-    ]:
-        pdf.bullet(f, x=158)
-
-    pdf.set_draw_color(200, 200, 200)
-    pdf.line(148, 33, 148, 150)
     pdf.slide_number(14, total)
-
-    # ──── SLIDE 15: References ────
-    pdf.add_page()
-    pdf.slide_title("References")
-
-    refs = [
-        '[1]  Tian, J., Yu, W., & Xie, S. (2008). "An Ant Colony Optimization Algorithm for Image Edge Detection." IEEE CEC, pp. 751-756.',
-        '[2]  Nezamabadi-pour, H., et al. "Ant Colonies for MRF-Based Image Segmentation." J. Applied Sciences.',
-        '[3]  "Edge Detection Using Ant Colony Optimization." IJETT, V71I9P233.',
-        '[4]  Martin, D., Fowlkes, C., Tal, D., & Malik, J. (2001). "A Database of Human Segmented Natural Images." ICCV.',
-        '[5]  Dorigo, M. & Stutzle, T. (2004). Ant Colony Optimization. MIT Press.',
-        '[6]  Canny, J. (1986). "A Computational Approach to Edge Detection." IEEE TPAMI, 8(6), pp. 679-698.',
-    ]
-    pdf.set_y(35)
-    for r in refs:
-        pdf.body_text(r, size=11)
-        pdf.ln(2)
-
-    pdf.ln(8)
-    pdf.set_font("Helvetica", "B", 24)
-    pdf.set_text_color(0, 0, 0)
-    pdf.set_x(15)
-    pdf.cell(pdf.W - 30, 12, "Thank You", align="C", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_font("Helvetica", "", 14)
-    pdf.set_text_color(150, 150, 150)
-    pdf.set_x(15)
-    pdf.cell(pdf.W - 30, 8, "Questions & Discussion", align="C")
-    pdf.slide_number(15, total)
 
     # Save
     out = os.path.join(SCRIPT_DIR, "ACO_Edge_Detection_Presentation.pdf")

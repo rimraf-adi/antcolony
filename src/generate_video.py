@@ -3,7 +3,7 @@
 import os
 import numpy as np
 import cv2
-from main import AntColonyEdgeDetector
+from aco_edge import AntColonyEdgeDetector
 
 
 class ACOFrameRecorder(AntColonyEdgeDetector):
