@@ -21,4 +21,4 @@ human/
 output/
 
 # Lock file (optional — remove this line if you want reproducible deps)
-# uv.lock
+# uv.lockref/semantic.png
