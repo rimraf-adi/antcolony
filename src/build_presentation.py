@@ -353,38 +353,38 @@ def build_pdf():
 
     pdf.body_text("Each dashboard: Original | Human Ground Truth | ACO Edge Map", y=30, size=11, color=(100, 100, 100))
 
-    img1 = os.path.join(assets, "sample_bears.png")
+    img1 = os.path.join(SCRIPT_DIR, "../output_fresh/100075.png")
     pdf.add_image_safe(img1, 15, 40, w=265)
 
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(150, 150, 150)
     pdf.set_xy(15, 100)
-    pdf.cell(265, 5, "BSDS300 #100075: Bears at water's edge", align="C")
+    pdf.cell(265, 5, "BSDS300 #100075: Bears", align="C")
 
-    img2 = os.path.join(assets, "sample_plane.png")
+    img2 = os.path.join(SCRIPT_DIR, "../output_fresh/100098.png")
     pdf.add_image_safe(img2, 15, 110, w=265)
 
     pdf.set_xy(15, 170)
-    pdf.cell(265, 5, "BSDS300 #3096: Military aircraft in flight", align="C")
+    pdf.cell(265, 5, "BSDS300 #100098: Bear in snow", align="C")
     pdf.slide_number(10, total)
 
     # ──── SLIDE 11: Results 2 ────
     pdf.add_page()
     pdf.slide_title("Results: Sample Outputs (Set 2)")
 
-    img3 = os.path.join(assets, "sample_3.png")
+    img3 = os.path.join(SCRIPT_DIR, "../output_fresh/101085.png")
     pdf.add_image_safe(img3, 15, 35, w=265)
 
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(150, 150, 150)
     pdf.set_xy(15, 97)
-    pdf.cell(265, 5, "BSDS300 #42049: Bird on branch", align="C")
+    pdf.cell(265, 5, "BSDS300 #101085: Scene Outline", align="C")
 
-    img4 = os.path.join(assets, "sample_4.png")
+    img4 = os.path.join(SCRIPT_DIR, "../output_fresh/101087.png")
     pdf.add_image_safe(img4, 15, 107, w=265)
 
     pdf.set_xy(15, 170)
-    pdf.cell(265, 5, "BSDS300 #135069: Eagles in flight", align="C")
+    pdf.cell(265, 5, "BSDS300 #101087: Scene Edge Map", align="C")
     pdf.slide_number(11, total)
 
     # ──── SLIDE 12: Analysis ────
