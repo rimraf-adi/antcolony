@@ -17,26 +17,18 @@ iacv_research/
 ├── src/
 │   ├── aco_edge.py            # Core ACO algorithm (AntColonyEdgeDetector class)
 │   ├── process.py             # Batch processing pipeline with CLI
-│   ├── build_presentation.py  # Generates the PDF presentation
 │   ├── generate_video.py      # Creates the demo animation video
-│   ├── stitch_video.py        # Stitches video frames together
-│   └── math_eqn.py            # Renders equation images for slides
+│   └── stitch_video.py        # Stitches video frames together
 ├── data/
 │   ├── images/                # BSDS300 grayscale images (300 JPGs)
 │   ├── human/                 # Human segmentation annotations (.seg files)
 │   └── BSDS300/               # Original dataset files
 ├── output/                    # Generated 3-panel dashboard PNGs (300 files)
 ├── output_fresh/              # Alternate output run
-├── docs/
-│   └── presentation/
-│       ├── index.html         # Interactive HTML slide deck
-│       └── assets/            # Slide images and equations
 ├── submission/                # Final deliverables
-│   ├── ACO_Edge_Detection_Presentation.pdf
 │   ├── ACO_Edge_Detection_Demo.mp4
 │   └── README.md
 ├── video_frames/              # Intermediate frames for video generation
-├── viva_material.tex          # LaTeX reference notes for viva
 ├── pyproject.toml             # Dependencies and project config
 ├── uv.lock                    # Locked dependency versions
 └── .python-version            # Python 3.13
@@ -62,7 +54,6 @@ Dependencies (installed automatically via `uv sync`):
 | NumPy | ≥ 2.4.2 | Array operations |
 | OpenCV | ≥ 4.13.0 | Image I/O, Sobel, Canny |
 | tqdm | ≥ 4.67.3 | Progress bars |
-| fpdf2 | latest | PDF presentation generation |
 
 ## Getting Started
 
@@ -133,11 +124,6 @@ Generates a 5-panel dashboard with Sobel and Canny edges alongside ACO.
 uv run python src/process.py -n 5 --compare -o results/
 ```
 
-### Generate the Presentation PDF
-
-```bash
-uv run python src/build_presentation.py
-```
 
 ### Generate the Demo Video
 
@@ -172,19 +158,3 @@ Human segmentation labels (stored as `.seg` files with run-length encoded segmen
 - The inner loop is sequential (per-ant, per-step), so runtime scales linearly with ant count and iterations.
 - Use `-n 5` for quick demos. Reducing `num_ants` to 2048 and `num_iterations` to 20 cuts processing time significantly.
 - No GPU is required.
-
-## Troubleshooting
-
-**`ModuleNotFoundError: No module named 'cv2'`** — Run `uv sync` or `pip install opencv-python`.
-
-**Image not loading** — Double-check the file path. Images should be in `data/images/`.
-
-**Very slow processing** — Reduce ant count or iteration count, or limit the number of images with `-n`.
-
-**Python version error** — This project requires Python 3.13+. Check with `python --version`.
-
-**Import errors when running scripts** — Make sure you run from the project root directory (`iacv_research/`), not from inside `src/`.
-
-## Reference
-
-1. "Image Segmentation Technology Based on Ant Colony Algorithm." *Journal of Electrical Systems*, Vol. 20 No. 9s (2024). [https://journal.esrgroups.org/jes/article/view/4307](https://journal.esrgroups.org/jes/article/view/4307)

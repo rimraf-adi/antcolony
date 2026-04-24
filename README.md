@@ -17,26 +17,18 @@ iacv_research/
 ├── src/
 │   ├── aco_edge.py            # Core ACO algorithm (AntColonyEdgeDetector class)
 │   ├── process.py             # Batch processing pipeline with CLI
-│   ├── build_presentation.py  # Generates the PDF presentation
 │   ├── generate_video.py      # Creates the demo animation video
-│   ├── stitch_video.py        # Stitches video frames together
-│   └── math_eqn.py            # Renders equation images for slides
+│   └── stitch_video.py        # Stitches video frames together
 ├── data/
 │   ├── images/                # BSDS300 grayscale images (300 JPGs)
 │   ├── human/                 # Human segmentation annotations (.seg files)
 │   └── BSDS300/               # Original dataset files
 ├── output/                    # Generated 3-panel dashboard PNGs (300 files)
 ├── output_fresh/              # Alternate output run
-├── docs/
-│   └── presentation/
-│       ├── index.html         # Interactive HTML slide deck
-│       └── assets/            # Slide images and equations
 ├── submission/                # Final deliverables
-│   ├── ACO_Edge_Detection_Presentation.pdf
 │   ├── ACO_Edge_Detection_Demo.mp4
 │   └── README.md
 ├── video_frames/              # Intermediate frames for video generation
-├── viva_material.tex          # LaTeX reference notes for viva
 ├── pyproject.toml             # Dependencies and project config
 ├── uv.lock                    # Locked dependency versions
 └── .python-version            # Python 3.13
@@ -62,7 +54,6 @@ Dependencies (installed automatically via `uv sync`):
 | NumPy | ≥ 2.4.2 | Array operations |
 | OpenCV | ≥ 4.13.0 | Image I/O, Sobel, Canny |
 | tqdm | ≥ 4.67.3 | Progress bars |
-| fpdf2 | latest | PDF presentation generation |
 
 ## Getting Started
 
@@ -133,11 +124,6 @@ Generates a 5-panel dashboard with Sobel and Canny edges alongside ACO.
 uv run python src/process.py -n 5 --compare -o results/
 ```
 
-### Generate the Presentation PDF
-
-```bash
-uv run python src/build_presentation.py
-```
 
 ### Generate the Demo Video
 
