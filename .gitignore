@@ -19,6 +19,16 @@ human/
 
 # Output (regenerable)
 output/
+output_fresh/
+docs/
+
 
 # Lock file (optional — remove this line if you want reproducible deps)
-# uv.lockref/semantic.png
+# uv.lock
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz

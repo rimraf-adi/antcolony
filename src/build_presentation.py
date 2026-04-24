@@ -94,8 +94,7 @@ def build_pdf():
     
     info_lines = [
         "Submitted by: Aditya Kinjawadekar (BT23ECE064)",
-        "Type: Solo Project",
-        "Guide: Dr. V. R. Satpute",
+        "Course Coordinator: Dr. V. R. Satpute",
         "Department of Electronics and Communication, VNIT Nagpur",
     ]
     for line in info_lines:
@@ -117,7 +116,7 @@ def build_pdf():
     pdf.bullet("Sensitive to noise without careful parameter tuning")
 
     pdf.ln(4)
-    pdf.body_text("Our Approach:", bold=True, size=14)
+    pdf.body_text("ACO Approach:", bold=True, size=14)
     pdf.ln(1)
     pdf.bullet("Apply Ant Colony Optimization (ACO): a swarm intelligence metaheuristic")
     pdf.bullet("Artificial ants traverse the pixel grid, depositing pheromone on edge locations")
@@ -129,16 +128,14 @@ def build_pdf():
     pdf.add_page()
     pdf.slide_title("Literature Survey")
 
-    pdf.body_text("[1]  Tian, Yu & Xie (2008): IEEE CEC", y=33, bold=True, size=13)
-    pdf.bullet("Pioneered ACO for image edge detection. Ants traverse pixel grids using pheromone and gradient heuristics. Competitive with Sobel and Canny.", color=(80, 80, 80))
-
-    pdf.ln(2)
-    pdf.body_text("[2]  Nezamabadi-pour et al.: MRF-Based Image Segmentation", bold=True, size=13)
-    pdf.bullet("Extended ACO to MRF-based segmentation, showing pheromone-guided traversal captures spatial context beyond local gradient information.", color=(80, 80, 80))
-
-    pdf.ln(2)
-    pdf.body_text("[3]  IJETT V71I9P233: Edge Detection Using ACO", bold=True, size=13)
-    pdf.bullet("Comprehensive survey comparing ACO with classical methods. Analyzes parameter sensitivity. ACO produces smoother, more connected edges.", color=(80, 80, 80))
+    pdf.body_text("Image Segmentation Technology Based on Ant Colony Algorithm", y=33, bold=True, size=14)
+    pdf.body_text("Journal of Electrical Systems, Vol. 20 No. 9s (2024)", size=11, color=(100, 100, 100))
+    pdf.ln(3)
+    pdf.bullet("Studies ACO-based image segmentation with a focus on boundary smoothing techniques.")
+    pdf.bullet("Covers fundamentals of ACO and its application to image segmentation, analyzing strengths of the approach.")
+    pdf.bullet("Evaluates boundary smoothing via morphological operations, edge-preserving filters, and active contours (snakes).")
+    pdf.bullet("Shows that boundary smoothing improves accuracy and visual quality of ACO-segmented images.")
+    pdf.bullet("Demonstrates applications in medical imaging, remote sensing, and industrial automation.")
     pdf.slide_number(3, total)
 
     # ──── SLIDE 4: Biological Inspiration ────
@@ -157,7 +154,7 @@ def build_pdf():
         pdf.set_y(pdf.get_y())
         pdf.bullet(b, x=18)
 
-    pdf.body_text("Our Analogy", x=155, y=33, bold=True, size=15)
+    pdf.body_text("ACO Analogy", x=155, y=33, bold=True, size=15)
     pdf.set_y(y_start)
     for b in [
         "Image pixels = graph nodes",
@@ -297,8 +294,8 @@ def build_pdf():
     pdf.bullet("Multiple independent human segmentations per image")
     pdf.bullet("Standard benchmark in edge detection and segmentation literature")
 
-    pdf.body_text("Our Processing", x=155, y=80, bold=True, size=14)
-    pdf.set_y(pdf.get_y() - 20)
+    pdf.body_text("Data Processing", x=155, y=80, bold=True, size=14)
+    pdf.set_y(90)
     pdf.bullet("All images converted to grayscale", x=158)
     pdf.bullet(".seg files parsed to binary edge maps via Sobel", x=158)
     pdf.bullet("3-panel dashboard visualization per image", x=158)
@@ -389,38 +386,26 @@ def build_pdf():
 
     # ──── SLIDE 12: Analysis ────
     pdf.add_page()
-    pdf.slide_title("Strengths & Limitations")
+    pdf.slide_title("Key Strengths")
 
-    pdf.body_text("Strengths", x=15, y=33, bold=True, size=15)
+    pdf.body_text("Why ACO Works Well for Edge Detection", x=15, y=33, bold=True, size=15)
+    pdf.ln(2)
     for s in [
-        "Adaptive: pheromone reinforcement concentrates on true edges",
-        "Connected edges: ant traversal produces continuous contours",
-        "Noise tolerance: collective behavior averages out noise",
-        "Flexible: tunable via a, b, rho, ant count parameters",
-        "No training required: pure optimization approach",
+        "Adaptive: pheromone reinforcement naturally concentrates on true edge locations",
+        "Connected edges: ant traversal produces more continuous contours than pixel-wise operators",
+        "Noise tolerance: collective behavior of multiple ants averages out noisy gradients",
+        "Flexible: easily tunable via alpha, beta, decay rate, and ant count parameters",
+        "No training required: pure optimization approach - no labeled data needed",
+        "Unsupervised: works without external datasets or pre-trained models",
     ]:
         pdf.bullet(s, x=18)
-
-    pdf.body_text("Limitations", x=155, y=33, bold=True, size=15)
-    pdf.set_y(44)
-    for s in [
-        "Computational cost: per-ant loops are expensive",
-        "Parameter sensitivity: poor a/b produce weak edges",
-        "Thinner edges: ACO edges sparser than ground truth",
-        "No multi-scale: single-resolution Sobel heuristic",
-        "Sequential bottleneck: hard to parallelize on CPU",
-    ]:
-        pdf.bullet(s, x=158)
-
-    pdf.set_draw_color(200, 200, 200)
-    pdf.line(148, 33, 148, 150)
     pdf.slide_number(12, total)
 
     # ──── SLIDE 13: Comparison ────
     pdf.add_page()
     pdf.slide_title("ACO vs. Traditional Methods")
 
-    headers2 = ["Property", "Sobel", "Canny", "ACO (Ours)"]
+    headers2 = ["Property", "Sobel", "Canny", "ACO"]
     data2 = [
         ["Approach", "Fixed 3x3 kernels", "Multi-stage pipeline", "Swarm intelligence"],
         ["Adaptivity", "None", "Threshold-based", "Pheromone-guided"],
